@@ -1,0 +1,15 @@
+<div class="search-content accent" fxLayout="row">
+	
+	<div fxLayout="row" fxLayoutAlign="center center">
+		<md-icon>search</md-icon>
+    </div>
+
+	<input class="search-input" fxFlex="" placeholder="Search..." type="search" #searchValue [mdAutocomplete]="auto" [formControl]="optionCtrl">
+
+	<md-autocomplete #auto="mdAutocomplete">
+		<md-option *ngFor="let state of filteredOptions | async" [value]="option">
+			{{ state }}
+		</md-option>
+	</md-autocomplete>
+
+</div>

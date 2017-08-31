@@ -1,0 +1,28 @@
+<div class="sidenav-container" fxLayout="column">
+
+	<md-toolbar color="primary">
+		<div fxLayout="row">
+			<img src="/assets/logo.png" width="36" height="36" alt="LogoPw">
+			<span  fxFlexAlign="center" class="logoApp fade-sidenav">WarehouseApp <span class="verionApp">v2.0.0</span></span>
+		</div>
+	</md-toolbar>
+
+	<div class="sidenav-scrollbar-container" fxLayout="column">
+		<perfect-scrollbar class="ps-container">
+			<md-nav-list class="sidenav-list" fxLayout="column">
+
+				<md-list-item routerLink="/dashboard">
+					<md-icon md-list-icon>dashboard</md-icon>
+					<p md-line class="sidenav-item-name fade-sidenav">Dashboard</p>
+				</md-list-item>
+				
+				<md-list-item routerLink="/user">
+					<md-icon md-list-icon>person</md-icon>
+					<p md-line class="sidenav-item-name fade-sidenav">User</p>
+				</md-list-item>
+
+			</md-nav-list>
+		</perfect-scrollbar>
+	</div>
+
+</div>

@@ -1,0 +1,63 @@
+.login-container {
+	background-image: url("https://lh6.googleusercontent.com/-CWkOZ5cURf4/U2GxPjqGC4I/AAAAAAAAD1s/KV9suTiNK3Q/w1651-h878/trianglify.jpg");
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-size: cover; }
+	.login-container {
+		height: 100vh !important;
+	}
+
+.card-contariner {
+	opacity: 0.8;
+	min-height: 330px;
+	transition-duration:0.8s;
+	-webkit-transition-duration:0.8s; }
+	@media (max-width: 959px) {
+		.card-contariner, .technologyIcon {
+			width: 80%; }
+	}
+	@media (min-width: 960px) {
+		.card-contariner, .technologyIcon {
+			width: 400px; }
+	}
+
+.tryLogin-container,
+.login-form-container {
+	height: 220px !important;
+}
+
+md-card-content {
+	width: 100%;
+}
+
+md-input-container {
+	width: 100%;
+}
+
+.copy-container {
+	padding: 20px }
+	.copy-container a {
+		text-decoration: none; }
+	.copy {
+		font-size: 12px;
+		color: #FFFFFF;
+	}
+
+.button-row {
+	display: flex;
+	align-items: right;
+	justify-content: space-around; }
+	.login-button{
+		text-decoration: underline;
+		font-size: x-small;
+	}
+
+.error-container{
+	padding: 2px 15px;
+	background-color: #f2dede;
+	border-color: #ebccd1;
+	color: #a94442;
+	border: 1px solid transparent;
+	margin-bottom: 20px;
+	font-size: 12px;
+}

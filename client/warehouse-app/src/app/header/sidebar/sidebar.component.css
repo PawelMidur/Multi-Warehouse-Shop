@@ -1,0 +1,35 @@
+.verionApp {
+	font-size: 10px
+}
+
+.logoApp {
+ margin-left: 6px;
+}
+
+md-list-item {
+	color: #FFF !important;
+}
+
+md-toolbar{
+	box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
+}
+
+.sidenav-container,
+.sidenav-scrollbar-container {
+	height: 100%;
+	overflow: hidden;
+}
+
+.ps-container {
+	-ms-touch-action: auto;
+	touch-action: auto;
+	overflow: hidden !important;
+	-ms-overflow-style: none;
+	position: relative;
+	display: block;
+}
+
+.sidenav-item-name {
+	margin-left: 4px !important;
+}
+

@@ -1,0 +1,15 @@
+<md-sidenav-container class="sidenav-container" fullscreen>
+	
+	<md-sidenav #sidenav sidebarcollapsed class="sidenav-nav">
+		<pw-sidebar></pw-sidebar>
+	</md-sidenav>
+
+	<pw-top-toolbar [sideNav]="sidenav"></pw-top-toolbar>
+	
+	<div class="main-container">
+		<router-outlet></router-outlet>
+	</div>
+	
+	<footer></footer>
+
+</md-sidenav-container>

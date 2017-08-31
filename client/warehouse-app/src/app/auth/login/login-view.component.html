@@ -1,0 +1,57 @@
+<div fxFlexFill fxLayout="column" fxLayoutAlign="center center" class="login-container">
+	<div fxLayout="column" class="card-contariner">
+		<md-card fxLayout="column" fxLayoutAlign="space-around center">
+			<md-card-header>
+				<md-card-title>Aplikacja Magazynowa</md-card-title>
+				<md-card-subtitle fxLayoutAlign="center center">v2.0.0</md-card-subtitle>
+			</md-card-header>
+			<div *ngIf="!tryingToLogIn" class="login-form-container" fxFlexFill>
+				<form (ngSubmit)="tryLogin($event)" fxLayout="column" fxLayoutAlign="end center" fxFlexFill>
+					<md-card-content fxLayout="column">
+						<md-input-container>
+							<input mdInput
+							placeholder="Username"
+							name="userName"
+							[(ngModel)]="user.username">
+							<md-hint *ngIf="signInError && signInError.length > 0" [ngStyle]="{'color': 'red'}" align="end">Invalid Username</md-hint>
+						</md-input-container>
+						<md-input-container >
+							<input mdInput
+							placeholder="Password"
+							name="password"
+							type="password"
+							[(ngModel)]="user.password">
+							<md-hint *ngIf="signInError && signInError.length > 0" [ngStyle]="{'color': 'red'}" align="end">Invalid Password</md-hint>
+						</md-input-container>
+					</md-card-content>
+					<md-card-actions class="button-row">
+						<button type="submit" md-raised-button color="primary">Zaloguj się!</button>
+					</md-card-actions>
+				</form>
+			</div>
+			<div *ngIf="tryingToLogIn" fxLayout="column" fxLayoutAlign="center center" fxFlexFill class="tryLogin-container">
+				<h3>Logowanie... Proszę czekać...</h3>
+				<h5><md-spinner></md-spinner></h5>
+			</div>
+		</md-card>
+	</div>
+	<div fxLayout="column" fxLayoutAlign="center center" class="copy-container">
+		<a href="http://pawelmidur.pl/" target="_blank">
+			<span class="copy">© Paweł Midur™ 2017 - All rights reserved</span>
+		</a>
+	</div>
+	<div fxLayout="row" fxLayoutAlign="space-around center" class="technologyIcon">
+		<a href="https://angular.io/" target="_blank">
+			<img src="assets/angular2.png" width="50px">
+		</a>
+		<a href="https://material.angular.io/" target="_blank">
+			<img src="assets/material.png" width="50px">
+		</a>
+		<a href="https://www.google.pl/chrome/browser/desktop/" target="_blank">
+			<img src="assets/chrome.png" width="50px">
+		</a>
+		<a href="https://www.w3.org/TR/html5/" target="_blank">
+			<img src="assets/html5-css3.png" width="50px">
+		</a>
+	</div>
+</div>

@@ -1,0 +1,24 @@
+{
+  "name": "backendWarehouse",
+  "version": "0.0.4-alfa",
+  "private": true,
+  "scripts": {
+    "start": "nodemon bin/www"
+  },
+  "dependencies": {
+    "serve-favicon": "",
+    "body-parser": "",
+    "cookie-parser": "",
+    "cors": "",
+    "debug": "",
+    "dotenv": "",
+    "express": "",
+    "express-session": "",
+    "jsonwebtoken": "",
+    "knex": "",
+    "md5": "",
+    "morgan": "",
+    "mysql": ""
+  },
+  "devDependencies": {}
+}

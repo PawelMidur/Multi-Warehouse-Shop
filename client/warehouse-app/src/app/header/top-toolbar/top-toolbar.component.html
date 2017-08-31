@@ -1,0 +1,27 @@
+<md-toolbar color="primary">
+
+	<button md-icon-button (click)="toggleMenu()" fxHide.gt-sm>
+		<md-icon>menu</md-icon>
+	</button>
+	
+	<span class="fill-remaining-space"></span>
+	<pw-top-search fxHide.xs fxHide.sm></pw-top-search>
+	<span class="fill-remaining-space"></span>
+
+	<button *ngIf="!user" md-button routerLink="/login">Zaloguj się <md-icon>send</md-icon></button>
+	<button *ngIf="user" md-icon-button [mdMenuTriggerFor]="menu">
+		<md-icon>arrow_drop_down</md-icon>
+	</button>
+	<md-menu #menu="mdMenu">
+		<button md-menu-item disabled>
+			<md-icon>person_outline</md-icon>
+			<span>{{user?.username}}</span>
+		</button>
+		<button md-menu-item (click)="logout()">
+			<md-icon>close</md-icon>
+			<span>Wyloguj</span>
+		</button>
+	</md-menu>
+	
+</md-toolbar>
+
