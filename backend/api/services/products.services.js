@@ -4,16 +4,6 @@ const Product = require('../models/products.model');
 const Tax = require('../models/tax.model');
 const Currency = require('../models/currency.model');
 
-/**
-* example -> /products?stats=[month,all]&currency=PLN&warehouse=1&tax=23
-*
-* @param json query Property form URL :
-* 	@param array stats Product statistics per month and/or all 
-* 	@param string currency Product currency to show, default PLN
-* 	@param int tax Product tax to show, default 23%
-* 	@param int warehouse from which id_warehouse, default 1 - main
-* @return json products list
-*/
 module.exports.getAll = async function ( query ) {
 	let where = {};
 
@@ -29,7 +19,9 @@ module.exports.getAll = async function ( query ) {
 	where.id_currency = await currency;
 	where.id_tax = await tax;
 
-	return Product.getProductsList(where, 1, 0, 1333, true, stats);
+	let res = Product.getProductsList(where, 1, 0, 1333, true, stats);
+	
+	return res;
 }
 
 module.exports.getOne = async function ( prod_id, id_att, query ) {

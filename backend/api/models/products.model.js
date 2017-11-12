@@ -9,51 +9,88 @@ const Attribute = require('./attribute.model');
 class Products extends ObjectModel {
 
 	constructor(id = null, att = null, id_warehouse = null, id_lang = null, id_shop = null) {
-		super();
+		
+		this.product = {
+			"id_products": null,
+			"p_name": null,
+			"code": null,
+			"p_date_add": "0000-00-00T00:00:00.000Z",
+			"p_date_upd": "0000-00-00T00:00:00.000Z",
+			"id_products_attribute": null,
+			"id_color": null,
+			"id_size": null,
+			"ean13": null,
+			"a_visibility": null,
+			"a_date_add": "0000-00-00T00:00:00.000Z",
+			"a_date_upd": "0000-00-00T00:00:00.000Z",
+			"color": null,
+			"hex": null,
+			"size": null,
+			"id_warehouse": null,
+			"quantity": null,
+			"statsMonth": null,
+			"statsAll": null,
+			"cat_name": null,
+            "id_categories": null,
+            "id_lang": 1,
+			"id_price": null,
+			"id_currency": null,
+			"id_tax": null,
+			"purchase_net": null,
+			"purchase_gross": null,
+			"purchase_type": 1,
+			"wholesale_net": null,
+			"wholesale_gross": null,
+			"wholesale_type": 1,
+			"sale_net": null,
+			"sale_gross": null,
+			"sale_type": 1
+		}
+		// super();
 
-		this.products = {
-			id_products : null,
-			name : null,
-			code : null,
-			date_upd : (new Date()).toISOString(),
-			date_add : id ? null : (new Date()).toISOString(),
+		// this.products = {
+		// 	id_products : null,
+		// 	name : null,
+		// 	code : null,
+		// 	date_upd : (new Date()).toISOString(),
+		// 	date_add : id ? null : (new Date()).toISOString(),
 
-			t_price : null,
-			t_categories : null,
+		// 	t_price : null,
+		// 	t_categories : null,
 
-			t_attribute : null
-		};
+		// 	t_attribute : null
+		// };
 
 
-		this.init = ( () => {
-			if (this.id) {
-				return Promise.all([
-					this.getProduct(id),
+		// this.init = ( () => {
+		// 	if (this.id) {
+		// 		return Promise.all([
+		// 			this.getProduct(id),
 
-					this.getProductPrice(id),
-					this.getProductCategories(id),
+		// 			this.getProductPrice(id),
+		// 			this.getProductCategories(id),
 					
-					att ? new Attribute(att, id, true, id_warehouse, id_lang, id_shop).attribute : Attribute.getProductAttributeList(id)
+		// 			att ? new Attribute(att, id, true, id_warehouse, id_lang, id_shop).attribute : Attribute.getProductAttributeList(id)
 
-				]).then(values => {
-					this.products.id_products = values[0][0].id_products;
-					this.products.name = values[0][0].name;
-					this.products.code = values[0][0].code;
-					this.products.date_upd = values[0][0].date_upd;
-					this.products.date_add = values[0][0].date_add;
+		// 		]).then(values => {
+		// 			this.products.id_products = values[0][0].id_products;
+		// 			this.products.name = values[0][0].name;
+		// 			this.products.code = values[0][0].code;
+		// 			this.products.date_upd = values[0][0].date_upd;
+		// 			this.products.date_add = values[0][0].date_add;
 
-					this.products.t_price = values[1];
-					this.products.t_categories = values[2];
-					this.products.t_attribute = values[3];
+		// 			this.products.t_price = values[1];
+		// 			this.products.t_categories = values[2];
+		// 			this.products.t_attribute = values[3];
 							
-					return true;
-				}).catch(reason => {
-					return reason;
-				});
-			} else {
-				return super.getNull();
-			}		
-		})();
+		// 			return true;
+		// 		}).catch(reason => {
+		// 			return reason;
+		// 		});
+		// 	} else {
+		// 		return super.getNull();
+		// 	}		
+		// })();
 	}
 
 	get product() {
@@ -80,7 +117,6 @@ class Products extends ObjectModel {
 
 	/**
 	* Get available product
-	*
 	* @param int id Product id
 	* @return array Product with all details
 	*/
@@ -98,7 +134,6 @@ class Products extends ObjectModel {
 
 	/**
 	* Get all available products
-	*
 	* @param array|json {} where Property Where in SQL
 	* @param int id_lang Language id
 	* @param int start Start number
@@ -109,6 +144,8 @@ class Products extends ObjectModel {
 	static getProductsList( where = null, id_lang = 1, start = 0, limit = 0, with_Attribut = true, stats = {} ) {
 		let select = ["pw_products.id_products","pw_products.name as p_name","code","pw_products.date_add as p_date_add","pw_products.date_upd as p_date_upd"];
 		let prepare = db("pw_products");
+
+		where.id_lang = id_lang;
 
 		if (with_Attribut) {
 			select.push("pw_products_attribute.id_products_attribute", "pw_products_attribute.id_products", "pw_products_attribute.id_color", "pw_products_attribute.id_size", "ean13", "pw_products_attribute.visibility as a_visibility", "pw_products_attribute.date_add as a_date_add", "pw_products_attribute.date_upd as a_date_upd");
@@ -158,21 +195,89 @@ class Products extends ObjectModel {
 				prepare = prepare.leftJoin( subquery, 's2.id_products_attribute', 'pw_products_attribute.id_products_attribute');
 			}
 		}
-		if (where) {
-			select.push("pw_price.id_price", "id_currency", "id_tax", "purchase_net", "purchase_gross", "purchase_type", "wholesale_net", "wholesale_gross", "wholesale_type", "sale_net", "sale_gross", "sale_type");
-			select.push("pw_products_price.id_price", "pw_products_price.id_products");
 
-			prepare = prepare.leftJoin('pw_products_price', 'pw_products.id_products', 'pw_products_price.id_products')
-							 .leftJoin('pw_price', 'pw_products_price.id_price', 'pw_price.id_price');
+		/**
+		 * add to list Categories products
+		 */
+		select.push("pw_categories_name.name as cat_name", "pw_categories_name.id_categories", "pw_categories_name.id_lang");
 
-			prepare = prepare.where(where);
-		}
+		prepare = prepare.leftJoin('pw_products_categories', 'pw_products.id_products', 'pw_products_categories.id_products')
+						.leftJoin('pw_categories_name', 'pw_products_categories.id_categories', 'pw_categories_name.id_categories');
+
+		/**
+		 * Add to list of products price
+		 */
+		select.push("pw_price.id_price", "id_currency", "id_tax", "purchase_net", "purchase_gross", "purchase_type", "wholesale_net", "wholesale_gross", "wholesale_type", "sale_net", "sale_gross", "sale_type");
+		select.push("pw_products_price.id_price", "pw_products_price.id_products");
+
+		prepare = prepare.leftJoin('pw_products_price', 'pw_products.id_products', 'pw_products_price.id_products')
+						.leftJoin('pw_price', 'pw_products_price.id_price', 'pw_price.id_price');
+
+		prepare = prepare.where(where);
+
 		if (limit) {
 			prepare = prepare.limit(limit).offset(start);
 		}
 
-		return prepare.select(select);
+		let result = prepare.select(select); //console.log(result.toString());
+		return result;
 	}
+	/*
+	select 
+		`pw_products`.`id_products`, 
+		`pw_products`.`name` as `p_name`, 
+		`code`, 
+        `pw_categories_name`.`name` as `cat_name`,
+        `pw_categories_name`.`id_categories`,
+        `pw_categories_name`.`id_lang`,
+		`pw_products`.`date_add` as `p_date_add`, 
+		`pw_products`.`date_upd` as `p_date_upd`, 
+		`pw_products_attribute`.`id_products_attribute`, 
+		`pw_products_attribute`.`id_products`,
+		`pw_products_attribute`.`id_color`, 
+		`pw_products_attribute`.`id_size`,
+		`ean13`, 
+		`pw_products_attribute`.`visibility` as `a_visibility`, 
+		`pw_products_attribute`.`date_add` as `a_date_add`, 
+		`pw_products_attribute`.`date_upd` as `a_date_upd`, 
+		`pw_color`.`id_color`, 
+		`pw_color`.`name` as `color`, 
+		`pw_color`.`hex`, 
+		`pw_size`.`id_size`, 
+		`pw_size`.`name` as `size`, 
+		`pw_products_quantity`.`id_products_attribute`, 
+		`id_warehouse`, 
+		`quantity`,
+		`pw_price`.`id_price`, 
+		`id_currency`, 
+		`id_tax`,  
+		`purchase_net`,
+		`purchase_gross`, 
+		`purchase_type`, 
+		`wholesale_net`, 
+		`wholesale_gross`, 
+		`wholesale_type`, 
+		`sale_net`, 
+		`sale_gross`, 
+		`sale_type`, 
+		`pw_products_price`.`id_price`, 
+		`pw_products_price`.`id_products` 
+	from `pw_products` 
+	left join `pw_products_attribute` on `pw_products`.`id_products` = `pw_products_attribute`.`id_products` 
+    
+	left join `pw_color` on `pw_products_attribute`.`id_color` = `pw_color`.`id_color` 
+	left join `pw_size` on `pw_products_attribute`.`id_size` = `pw_size`.`id_size` 
+	
+    left join `pw_products_quantity` on `pw_products_attribute`.`id_products_attribute` = `pw_products_quantity`.`id_products_attribute` 
+	
+    left join `pw_products_price` on `pw_products`.`id_products` = `pw_products_price`.`id_products` 
+	left join `pw_price` on `pw_products_price`.`id_price` = `pw_price`.`id_price` 
+    
+    left join `pw_products_categories` on `pw_products`.`id_products` = `pw_products_categories`.`id_products` 
+    left join `pw_categories_name` on `pw_products_categories`.`id_categories` = `pw_categories_name`.`id_categories` 
+    
+	where `id_warehouse` = 1 and `id_currency` = 1 and `id_tax` = 1 and `id_lang` = 1 limit 1000
+	*/
 
 	getProductPrice(id) {
 		let select = ["pw_price.id_price", "id_currency", "id_tax", "purchase_net", "purchase_gross", "purchase_type", "wholesale_net", "wholesale_gross", "wholesale_type", "sale_net", "sale_gross", "sale_type"];

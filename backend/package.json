@@ -6,7 +6,6 @@
     "start": "nodemon bin/www"
   },
   "dependencies": {
-    "serve-favicon": "",
     "body-parser": "",
     "cookie-parser": "",
     "cors": "",
@@ -18,7 +17,9 @@
     "knex": "",
     "md5": "",
     "morgan": "",
-    "mysql": ""
+    "mysql": "",
+    "nodemon": "^1.12.1",
+    "serve-favicon": ""
   },
   "devDependencies": {}
 }

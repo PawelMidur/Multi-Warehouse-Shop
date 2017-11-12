@@ -4,13 +4,12 @@ var express = require('express');
 var router = express.Router();
 
 var productController = require('../api/controller/products.controller');
-//var productController = require('../api/services/products.services');
 
 const controllerHandler = (promise, params) => async (req, res, next) => {
 	const boundParams = params ? params(req, res, next) : [];
 	try {
 		const result = await promise(...boundParams, req.query);
-		return res.json( result || { message: 'OK' });
+		return res.json( { count: result.length, result: result } || { message: 'OK' });
 	} catch (error) {
 		console.log('Controller Handler Error :', error );
 		return res.status(500) && next(error);
